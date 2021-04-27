@@ -70,13 +70,11 @@ d3.json('newnewdata.json', function (jsondata) {
 
     gStep.call(sliderStep);
 
-    var windowsize = sliderStep.value()
-    console.log('windwosize is', windowsize)
-
     // select button
     d3.select("#selectButton").on("change", function (d) {
         // recover the option that has been chosen
         var selectedVerb = d3.select(this).property("value")
+        var windowsize = sliderStep.value() - 1
         // run the updateChart function with this selected option
         d3.selectAll('.verblabel').text(selectedVerb)
         d3.selectAll('#prep').text('...')
@@ -134,7 +132,10 @@ d3.json('newnewdata.json', function (jsondata) {
             var sentences = verbdata['sentences'][d.data.key]
             d3.selectAll('#prep').text(d.data.key)
             sentences.forEach(function (sent) {
-                d3.select('#sentences').append('p').attr('class', 'sentence').text(sent)
+                d3.select('#sentences')
+                    .append('p')
+                    .attr('class', 'sentence')
+                    .text(sent)
             })
         })
         // Now add the annotation. Use the centroid method to get the best coordinates

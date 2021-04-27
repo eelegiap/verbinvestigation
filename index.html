@@ -23,7 +23,13 @@
     }
 
     .sentence {
-        font-size: 16px
+        font-size: 16px;
+    }
+    .sentence:hover {
+        border: 2px;
+        border-style:solid; 
+        border-color: black;
+        padding: 5px;
     }
 </style>
 
@@ -33,8 +39,9 @@
             <h3>Prepositions occurring within <span id='windowsize'>?</span> word(s) of the stated verb.</h3>
             <p style='color: gray'>
                 Out of 98,892 total sentences in the Russian National Corpus, only
-                including verbs that occur 10 or more times total.
+                including verbs that occur 10 or more times total in the corpus.
             </p>
+            <hr>
         </div>
     </div>
     <div class='row'>
@@ -47,7 +54,7 @@
                     </h4>
                 </div>
                 <div class='col-md-6 text-center'>
-                    <p>Window size</p>
+                    <p>Window size (on either side of verb)</p>
                     <div id="slider-step"></div>
                 </div>
             </div>
