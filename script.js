@@ -5,7 +5,7 @@ d3.json('newnewdata.json', function (jsondata) {
     var verbdata = jsondata[0][verblabel]
 
     d3.selectAll('.verblabel').text(verblabel)
-    d3.select('#windowsize').text(1)
+    d3.selectAll('.windowsize').text(1)
     d3.selectAll('#prep').text('...')
 
     var allPrepLabels = new Set();
@@ -53,7 +53,7 @@ d3.json('newnewdata.json', function (jsondata) {
         .default(1)
         .on('onchange', val => {
             var windowsize = val - 1
-            d3.select('#windowsize').text(val)
+            d3.selectAll('.windowsize').text(val)
             d3.selectAll('.sentence').remove()
             var selectedVerb = d3.select('#selectButton').property("value")
             var piedata = jsondata[windowsize][selectedVerb]
