@@ -125,10 +125,21 @@ d3.json('newnewdata.json', function (jsondata) {
             .style("stroke-width", "2px")
             .style("opacity", 0.7)
         
-        slices.on('mouseover', function (d) {
+        slices.on('mouseover', function() {
+            d3.select(this).style('stroke-width', '5px').style('opacity', 1)
+        })
+        slices.on('mouseout', function() {
+            var selectedWedge = d3.select(this).attr('class');
+            if (selectedWedge != 'chosen') {
+                d3.select(this).style('stroke-width', '2px').style('opacity', .7)
+            }
+        })
+        slices.on('click', function (d) {
             d3.selectAll('.sentence').remove()
+            slices.attr('class','notchosen')
             slices.style('stroke-width', '2px').style('opacity', .7)
             d3.select(this).style('stroke-width', '5px').style('opacity', 1)
+            d3.select(this).attr('class','chosen')
             var sentences = verbdata['sentences'][d.data.key]
             d3.selectAll('#prep').text(d.data.key)
             sentences.forEach(function (sent) {
