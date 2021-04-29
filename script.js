@@ -8,6 +8,7 @@ d3.json('newnewdata.json', function (jsondata) {
     d3.selectAll('.windowsize').text(1)
     d3.selectAll('#prep').text('...')
 
+    // prep labels are actually never specified
     var allPrepLabels = new Set();
     var allVerbLabels = Object.keys(jsondata[0])
 
