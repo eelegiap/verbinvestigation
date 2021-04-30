@@ -47,7 +47,7 @@ d3.json('individual_window_data1.json', function (jsondata) {
         .sliderBottom()
         .min(-4)
         .max(4)
-        .width(120)
+        .width(200)
         .tickFormat(d3.format('.1'))
         .ticks(8)
         .step(1)
@@ -69,7 +69,7 @@ d3.json('individual_window_data1.json', function (jsondata) {
     var gStep = d3
         .select('div#slider-step')
         .append('svg')
-        .attr('width', 175)
+        .attr('width', 250)
         .attr('height', 100)
         .append('g')
         .attr('transform', 'translate(30,30)');
