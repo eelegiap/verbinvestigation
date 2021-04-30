@@ -1,8 +1,8 @@
 // render pie in javascript
-d3.json('newnewdata.json', function (jsondata) {
+d3.json('individual_window_data1.json', function (jsondata) {
 
     var verblabel = 'вернуться'
-    var verbdata = jsondata[0][verblabel]
+    var verbdata = jsondata[5][verblabel]
 
     d3.selectAll('.verblabel').text(verblabel)
     d3.selectAll('.windowsize').text(1)
@@ -45,20 +45,25 @@ d3.json('newnewdata.json', function (jsondata) {
     // slider
     var sliderStep = d3
         .sliderBottom()
-        .min(1)
+        .min(-4)
         .max(4)
         .width(120)
         .tickFormat(d3.format('.1'))
-        .ticks(4)
+        .ticks(8)
         .step(1)
         .default(1)
         .on('onchange', val => {
-            var windowsize = val - 1
+            var windowsize = val + 4
             d3.selectAll('.windowsize').text(val)
             d3.selectAll('.sentence').remove()
             var selectedVerb = d3.select('#selectButton').property("value")
             var piedata = jsondata[windowsize][selectedVerb]
-            draw_pie(selectedVerb, piedata)
+            if (Object.entries(piedata['counts']).length === 0) {
+
+                draw_pie(selectedVerb, false)
+            } else {
+                draw_pie(selectedVerb, piedata)
+            }
         });
 
     var gStep = d3
@@ -75,13 +80,13 @@ d3.json('newnewdata.json', function (jsondata) {
     d3.select("#selectButton").on("change", function (d) {
         // recover the option that has been chosen
         var selectedVerb = d3.select(this).property("value")
-        var windowsize = sliderStep.value() - 1
+        var windowsize = sliderStep.value() + 4
         // run the updateChart function with this selected option
         d3.selectAll('.verblabel').text(selectedVerb)
         d3.selectAll('#prep').text('...')
         d3.selectAll('.sentence').remove()
         var piedata = jsondata[windowsize][selectedVerb]
-        if (Object.entries(piedata).length === 0) {
+        if (Object.entries(piedata['counts']).length === 0) {
             draw_pie(selectedVerb, false)
         } else {
             draw_pie(selectedVerb, piedata)
@@ -156,7 +161,12 @@ d3.json('newnewdata.json', function (jsondata) {
             .data(data_ready)
             .enter()
             .append('text')
-            .text(function (d) { return d.data.key + ' (' + d.data.value + ')' })
+            .text(function (d) { 
+                if (d.data.key == 'No prepositions in specified window') {
+                    return d.data.key
+                }
+                return d.data.key + ' (' + d.data.value + ')'
+             })
             .attr("transform", function (d) { return "translate(" + arcGenerator.centroid(d) + ")"; })
             .style("text-anchor", "middle")
             .style("font-size", 17)
